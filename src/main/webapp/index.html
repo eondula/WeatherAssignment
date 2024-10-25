@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Weather Search</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>Weather Search</h1>
+    
+    <!-- Navigation links that adjust based on login state -->
+    <nav id="navLinks">
+        <a href="login.html" id="loginLink">Login</a> | 
+        <a href="register.html" id="registerLink">Register</a>
+        <a href="profile.html" id="profileLink" style="display: none;">Profile</a> | 
+        <a href="#" id="signOutLink" style="display: none;">Sign Out</a>
+    </nav>
+
+    <!-- Weather Search Form -->
+    <form id="weatherForm">
+        <input type="text" id="latitude" placeholder="Enter latitude" required>
+        <input type="text" id="longitude" placeholder="Enter longitude" required>
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Div to display the result -->
+    <div id="result"></div>
+
+    <!-- JavaScript Files -->
+    <script src="script.js"></script>
+    <script>
+        // Check login status and adjust navigation links accordingly
+        const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+
+        if (isLoggedIn) {
+            document.getElementById('loginLink').style.display = 'none';
+            document.getElementById('registerLink').style.display = 'none';
+            document.getElementById('profileLink').style.display = 'inline';
+            document.getElementById('signOutLink').style.display = 'inline';
+        } else {
+            document.getElementById('loginLink').style.display = 'inline';
+            document.getElementById('registerLink').style.display = 'inline';
+            document.getElementById('profileLink').style.display = 'none';
+            document.getElementById('signOutLink').style.display = 'none';
+        }
+
+        // Sign out logic
+        document.getElementById('signOutLink').addEventListener('click', function() {
+            localStorage.removeItem('isLoggedIn');
+            localStorage.removeItem('userId');
+            window.location.href = 'index.html'; // Reload the page after sign-out
+        });
+    </script>
+</body>
+</html>
